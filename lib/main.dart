@@ -302,6 +302,8 @@ class BusinessCardPage extends StatelessWidget {
                               ShareButton(
                                 buttonText: 'Job Application Form',
                                 height: 45,
+                                radius: 38,
+                                weight: FontWeight.w500,
                               ),
                               SizedBox(
                                 height: 15,
@@ -309,6 +311,8 @@ class BusinessCardPage extends StatelessWidget {
                               ShareButton(
                                 buttonText: 'Brand Questionnaire Form',
                                 height: 45,
+                                radius: 38,
+                                weight: FontWeight.w500,
                               )
                             ],
                           ),
@@ -535,9 +539,8 @@ class _ServicesWidgetState extends State<ServicesWidget> {
                 color: Color(0xFF2A695D),
               ),
             ),
-            trailing: Icon(
-              _isExpanded ? Icons.expand_less : Icons.expand_more,
-              color: Color(0xFF2A695D),
+            trailing: SvgPicture.asset(
+              _isExpanded ? 'arrow-up.svg' : 'arrow-down.svg',
             ),
             onTap: () {
               setState(() {

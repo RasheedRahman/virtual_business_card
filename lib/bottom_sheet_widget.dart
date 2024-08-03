@@ -272,9 +272,16 @@ class RoundIconWidget extends StatelessWidget {
 class ShareButton extends StatelessWidget {
   final String buttonText;
   final double? height;
+  final double? radius;
   final void Function()? onTap;
+  final FontWeight? weight;
 
-  ShareButton({required this.buttonText, this.onTap, this.height = 54});
+  ShareButton(
+      {required this.buttonText,
+      this.onTap,
+      this.height = 54,
+      this.radius = 50,
+      this.weight = FontWeight.w700});
 
   @override
   Widget build(BuildContext context) {
@@ -282,7 +289,8 @@ class ShareButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(50),
+          borderRadius: BorderRadius.circular(radius!),
+          border: Border.all(width: 1, color: Color(0xFFDCE2E1)),
           color: Color(0xFF29695D),
         ),
         height: height,
@@ -290,7 +298,7 @@ class ShareButton extends StatelessWidget {
           child: Text(
             buttonText,
             style: TextStyle(
-              fontWeight: FontWeight.w700,
+              fontWeight: weight,
               fontSize: 15,
               fontFamily: 'Ubuntu',
               color: Color(0xFFF5F5F5),
