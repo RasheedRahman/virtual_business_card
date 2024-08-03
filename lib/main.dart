@@ -4,8 +4,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:virtual_business_card/bottom_sheet_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_image_slider/carousel.dart';
-import 'package:contacts_service/contacts_service.dart';
-import 'package:permission_handler/permission_handler.dart';
+// import 'package:contacts_service/contacts_service.dart';
+// import 'package:permission_handler/permission_handler.dart';
 
 void main() {
   runApp(MyApp());
@@ -36,6 +36,10 @@ class BusinessCardPage extends StatelessWidget {
       '3, Vathiar street, Karuvadikuppam, Lawspet, Puducherry, 605008';
   final String website = 'https://levitatestudios.in/';
   final String location = 'https://maps.app.goo.gl/Do4wHcyMzh8TZwnL8';
+  final String position = 'Flutter Developer';
+  final String company = 'Levitate Studios';
+  final String about_me_text =
+      "Hey, I'm the co-founder and Chief Design Officer at Levitate Studios, shaping awesome experiences for over four years. From pixels to user smiles, I've got a knack for making things look and feel amazing. Let's design the future together! 🎨";
 
   Future<void> openDialPad(String phoneNumber) async {
     final Uri dialUri = Uri(
@@ -124,7 +128,7 @@ class BusinessCardPage extends StatelessWidget {
                                   height: 15,
                                 ),
                                 Text(
-                                  "Hey, I'm the co-founder and Chief Design Officer at Levitate Studios, shaping awesome experiences for over four years. From pixels to user smiles, I've got a knack for making things look and feel amazing. Let's design the future together! 🎨",
+                                  about_me_text,
                                   style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w400,
@@ -219,6 +223,7 @@ class BusinessCardPage extends StatelessWidget {
                                   onTap: () async {
                                     await openDialPad(phoneNum1);
                                   },
+                                  bottom: 0,
                                 ),
                                 ContactDetailsWidget(
                                   text: 'Personal',
@@ -227,6 +232,7 @@ class BusinessCardPage extends StatelessWidget {
                                   onTap: () async {
                                     await openDialPad(phoneNum2);
                                   },
+                                  top: 0,
                                 ),
                                 SizedBox(
                                   height: 15,
@@ -277,6 +283,35 @@ class BusinessCardPage extends StatelessWidget {
                             ),
                           ),
                           Divider(),
+                          SizedBox(
+                            height: 30,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Forms',
+                                style: TextStyle(
+                                    color: Color(0xFF33423F),
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w700),
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              ShareButton(
+                                buttonText: 'Job Application Form',
+                                height: 45,
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              ShareButton(
+                                buttonText: 'Brand Questionnaire Form',
+                                height: 45,
+                              )
+                            ],
+                          ),
                           SizedBox(
                             height: 30,
                           ),
@@ -366,22 +401,22 @@ class BusinessCardPage extends StatelessWidget {
                           SizedBox(
                             height: 20,
                           ),
-                          // Row(
-                          //   mainAxisAlignment: MainAxisAlignment.center,
-                          //   children: [
-                          //     SvgPicture.asset('assets/copyright.svg'),
-                          //     SizedBox(
-                          //       width: 10,
-                          //     ),
-                          //     Text(
-                          //       '2023  www.levitatestudios.in',
-                          //       style: TextStyle(
-                          //           fontSize: 15,
-                          //           fontWeight: FontWeight.w400,
-                          //           color: Color(0xFF29695D)),
-                          //     ),
-                          //   ],
-                          // )
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SvgPicture.asset('assets/copyright.svg'),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                '2023  www.levitatestudios.in',
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color(0xFF29695D)),
+                              ),
+                            ],
+                          ),
                           // Container(
                           //   color: Color(0xFF29695D),
                           //   height: 10,
@@ -418,20 +453,32 @@ class BusinessCardPage extends StatelessWidget {
                       SizedBox(
                         height: 20,
                       ),
-                      Text(
-                        'Mohamed Rasheed Rahman',
-                        style: TextStyle(
-                            color: Color(0xFF29695D),
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500),
+                      Row(
+                        children: [
+                          Text(
+                            name,
+                            style: TextStyle(
+                                color: Color(0xFF29695D),
+                                fontSize: 20,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            '(He, Him)',
+                            style: TextStyle(
+                                fontSize: 14, color: Color(0xFFA8B6B3)),
+                          ),
+                        ],
                       ),
                       Text(
-                        'Flutter Developer',
+                        position,
                         style:
                             TextStyle(fontSize: 14, color: Color(0xFFA8B6B3)),
                       ),
                       Text(
-                        'Levitate Studios',
+                        company,
                         style:
                             TextStyle(fontSize: 14, color: Color(0xFFA8B6B3)),
                       ),
@@ -622,12 +669,16 @@ class ContactDetailsWidget extends StatelessWidget {
   final String textDetails;
   final String svgPath;
   final void Function()? onTap;
+  final double? top;
+  final double? bottom;
 
   ContactDetailsWidget(
       {required this.text,
       required this.textDetails,
       required this.svgPath,
-      this.onTap});
+      this.onTap,
+      this.top = 16,
+      this.bottom = 16});
 
   @override
   Widget build(BuildContext context) {
@@ -635,7 +686,8 @@ class ContactDetailsWidget extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.vertical(
+              top: Radius.circular(top!), bottom: Radius.circular(bottom!)),
           color: Colors.white,
         ),
         padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),

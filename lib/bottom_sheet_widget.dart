@@ -271,9 +271,10 @@ class RoundIconWidget extends StatelessWidget {
 
 class ShareButton extends StatelessWidget {
   final String buttonText;
+  final double? height;
   final void Function()? onTap;
 
-  ShareButton({required this.buttonText, this.onTap});
+  ShareButton({required this.buttonText, this.onTap, this.height = 54});
 
   @override
   Widget build(BuildContext context) {
@@ -284,7 +285,7 @@ class ShareButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(50),
           color: Color(0xFF29695D),
         ),
-        height: 54,
+        height: height,
         child: Center(
           child: Text(
             buttonText,
